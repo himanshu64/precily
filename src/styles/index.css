@@ -1,0 +1,27 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.react-datepicker__input-container input[type="text"]{
+    appearance: none !important;
+    border-top-right-radius: .25rem !important;
+border-bottom-right-radius: .25rem !important; 
+border-top-left-radius: .25rem !important;
+border-bottom-left-radius: .25rem !important;
+ 
+border-width: 1px !important;
+border-color: #cbd5e0 !important; 
+border-bottom-width: 1px !important;
+    display: block !important;
+     padding-left: 8px !important;
+     padding-right: 6px !important;
+     padding-top: 0.5rem !important;
+     padding-bottom: 0.5rem !important;
+     width: 100% !important;
+     background-color: #fff !important;
+     font-size: .875rem !important;
+     
+     color: #4a5568 !important;
+}

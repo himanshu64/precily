@@ -1,25 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{useState,useEffect} from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import firebase from './config/firebaseConfig';
+import Login from './components/login';
+import Dashboard from './components/dashboard';
+import Profile from './components/profile';
+import Navbar from './components/navbar'
+import Register from './components/register'
+import './styles/tailwind.css';
 
-function App() {
+
+const App = () => {
+  const [authenticated, setautheticated] = useState(false);
+ 
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged((authenticated) => {
+          console.log(authenticated)
+          authenticated 
+                ? setautheticated(true)
+                : setautheticated(false);
+        });
+        
+    }, [authenticated]);
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Navbar authenticated={authenticated}/>
+        <Switch>
+          <Route exact path="/">
+            <Login authenticated={authenticated}/>
+          </Route>
+          <Route path="/register">
+            <Register authenticated={authenticated}/>
+          </Route>
+          <Route path="/dashboard" authenticated={authenticated}>
+            <Dashboard  authenticated={authenticated}/>
+          </Route>
+          <Route path="/profile" authenticated={authenticated}>
+            <Profile  authenticated={authenticated}/>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
